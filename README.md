@@ -1,4 +1,6 @@
-# 2a_Stop_and_Wait_Protocol
+# IMPLEMENTATION OF STOP AND WAIT PROTOCOL 
+## EXP:1(a)
+## Date:
 ## AIM 
 To write a python program to perform stop and wait protocol
 ## ALGORITHM
@@ -12,21 +14,18 @@ To write a python program to perform stop and wait protocol
 
 CLIENT:
 ```
-import socket
-s=socket.socket()
-s.bind(('localhost',8000))
-s.listen(5)
-c,addr=s.accept()
+import socket 
+s=socket.socket() 
+s.bind(('localhost',9000)) 
+s.listen(5) 
+c,addr=s.accept() 
+address={"6A:08:AA:C2":"192.168.1.100","8A:BC:E3:FA":"192.168.1.99"}; 
 while True:
-    i=input("Enter a data: ")
-    c.send(i.encode())
-    ack=c.recv(1024).decode()
-    if ack:
-        print(ack)
-        continue
-    else:
-        c.close()
-        break
+     ip=c.recv(1024).decode() 
+     try: 
+       c.send(address[ip].encode()) 
+     except KeyError: 
+       c.send("Not Found".encode()) 
 ```
 SERVER:
 ```
@@ -34,18 +33,20 @@ import socket
 s=socket.socket()
 s.connect(('localhost',8000))
 while True:
- print(s.recv(1024).decode())
- s.send("Acknowledgement Recived".encode())
+    ip=input("Enter MAC Address : ")
+    s.send(ip.encode()) 
+    print("Logical Address",s.recv(1024).decode()) 
 ```
 
 ## OUTPUT
 CLIENT:
 
-![Screenshot 2024-03-09 110553](https://github.com/Prakash-Chandran/2a_Stop_and_Wait_Protocol/assets/147120899/760920eb-6335-47f0-8115-e39eb0c05a55)
+![Screenshot 2024-11-22 171523](https://github.com/user-attachments/assets/28e5af86-2c6e-4b62-9e8a-13052f44753d)
 
 SERVER:
 
-![Screenshot 2024-03-09 110545](https://github.com/Prakash-Chandran/2a_Stop_and_Wait_Protocol/assets/147120899/161d5c66-0f18-474c-8ad2-789ad0931764)
+![Screenshot 2024-11-22 171543](https://github.com/user-attachments/assets/eca757c7-269b-4e90-a661-dcdad4fa29d2)
+
 
 ## RESULT
 Thus, python program to perform stop and wait protocol was successfully executed.
